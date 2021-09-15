@@ -1,13 +1,14 @@
 import React from 'react';
 import Tag from './Tag';
 
-export default function TaggsContainer() {
+export default function TaggsContainer(props) {
+    const tags = props.tags;
+
     return (
         <div className="taggs_container">
-            <Tag name="hello" />
-            <Tag name="shop" />
-            <Tag name="some" />
-            <Tag name="text" />
+            {tags.map((tag) =>
+                <Tag key={tag.id.toString()} name={tag.name} />
+            )}
         </div>
     )
 }

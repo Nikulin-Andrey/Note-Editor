@@ -2,18 +2,14 @@ import React from 'react';
 import './NotesContainer.scss'; 
 import Note from './Note';
 
-export default function NotesContainer() {
+export default function NotesContainer(props) {
+    const notes = props.notes;
+
     return (
         <div className="notes_container">
-            <Note />
-            <Note />
-            <Note />
-            <Note />
-            <Note />
-            <Note />
-            <Note />
-            <Note />
-            <Note />
+            {notes.map(note => 
+                <Note key={note.id} text={note.text} />
+            )}
         </div>
     )
 }

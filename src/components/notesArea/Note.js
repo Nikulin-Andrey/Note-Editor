@@ -2,7 +2,7 @@ import React from 'react';
 import NoteEdit from './NoteEdit';
 import NoteDelete from './NoteDelete';
 
-export default function Note() {
+export default function Note(props) {
     return (
         <div className="note">
             <div className="note_header">
@@ -10,9 +10,7 @@ export default function Note() {
                 <NoteDelete />
             </div>
             <p className="note_text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi dolor pariatur eius vitae provident quaerat
-                voluptatum ex blanditiis voluptatibus laborum aut fugit culpa, quae doloribus. Saepe recusandae nostrum, repellendus
-                magnam beatae sint alias laborum reprehenderit laudantium?
+                {props.text}
             </p>
         </div>
     )

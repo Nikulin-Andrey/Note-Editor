@@ -1,0 +1,56 @@
+{
+  "notes-tags": {
+    "notes": [
+      {
+        "text": "Lorem ipsum #shop sit amet consectetur, adipisicing #hello. Nisi dolor pariatur eius vitae provident quaerat voluptatum ex blanditiis voluptatibus laborum aut fugit culpa, quae doloribus. Saepe recusandae nostrum, repellendusmagnam beatae sint alias laborum reprehenderit laudantium?",
+        "tags": [
+          "shop",
+          "hello"
+        ],
+        "id": 1
+      },
+      {
+        "text": "Lorem ipsum #shop sit amet consectetur, adipisicing #hello. Nisi dolor pariatur eius vitae provident quaerat voluptatum ex blanditiis voluptatibus laborum aut fugit culpa, quae doloribus. Saepe recusandae nostrum, repellendusmagnam beatae sint alias laborum reprehenderit laudantium?",
+        "tags": [
+          "shop",
+          "hello"
+        ],
+        "id": 2
+      },
+      {
+        "text": "Lorem ipsum #shop sit amet consectetur, adipisicing #hello. Nisi dolor pariatur eius vitae provident quaerat voluptatum ex blanditiis voluptatibus laborum aut fugit culpa, quae doloribus. Saepe recusandae nostrum, repellendusmagnam beatae sint alias laborum reprehenderit laudantium?",
+        "tags": [
+          "shop",
+          "hello"
+        ],
+        "id": 3
+      },
+      {
+        "text": "Lorem ipsum #shop sit amet consectetur, adipisicing #hello. Nisi dolor pariatur eius vitae provident quaerat voluptatum ex blanditiis voluptatibus laborum aut fugit culpa, quae doloribus. Saepe recusandae nostrum, repellendusmagnam beatae sint alias laborum reprehenderit laudantium?",
+        "tags": [
+          "shop",
+          "hello"
+        ],
+        "id": 4
+      }
+    ],
+    "tags": [
+      {
+        "name": "hello",
+        "id": 1
+      },
+      {
+        "name": "shop",
+        "id": 2
+      },
+      {
+        "name": "some",
+        "id": 3
+      },
+      {
+        "name": "text",
+        "id": 4
+      }
+    ]
+  }
+}
