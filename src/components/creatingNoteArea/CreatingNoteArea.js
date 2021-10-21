@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import NoteInput from './NoteInput';
 import './CreatingNoteArea.scss';
-import Buttons from './Buttons';
+import Button from '../Button/Button';
 
 export default function CreatingNoteArea(props) {
 
@@ -13,7 +13,18 @@ export default function CreatingNoteArea(props) {
                 onChange={props.changeNoteText}
                 showTags={false}
             />
-            <Buttons onClick={props.addNewNote} />
+            <div className="buttons">
+                <Button
+                    className="add"
+                    onClick={props.addNewNote}
+                    value="Add"
+                />
+                <Button
+                    className="filter"
+                    onClick={() => console.log("filter")}
+                    value="Filter"
+                />
+            </div>
         </div>
     )
 }

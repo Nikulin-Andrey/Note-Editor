@@ -5,38 +5,97 @@ import './NoteEditorContainer.scss';
 
 export default function NoteEditorContainer() {
 
+
     const [tags, setTags] = useState([]);
     const [notes, setNotes] = useState([]);
-    const [newNoteText, setNewNoteText] = useState(' ');
+    const [newNoteText, setNewNoteText] = useState('');
+    const [lastId, setLastId] = useState(0);
+    const [editId, setEditId] = useState(-1);
+    const [editableNoteText, setEditableNoteText] = useState('');
 
     useEffect(() => {
         const getNotesAndTags = async () => {
-            const serverNotesAndTags = await fetchData('http://localhost:5000/notes-tags');
-            setNotes(serverNotesAndTags.notes);
-            setTags(serverNotesAndTags.tags);
+            const serverNotes = await fetchData('http://localhost:5000/notes');
+            setNotes(serverNotes);
+            setTags([]);
+            const indexOfLanstNote = serverNotes.length - 1;
+            setLastId(serverNotes[indexOfLanstNote].id);
         }
 
         getNotesAndTags();
     }, []);
 
-    const fetchData = async (url) => {
-        const response = await fetch(url);
+    const fetchData = async (url, method = 'GET', id = '') => {
+        const response = await fetch(url + id, {
+            method: method
+        });
         const data = await response.json();
         return data;
     }
 
-    function changeNoteText(e) {
+    function changeNewNoteText(e) {
         setNewNoteText(e.target.value);
     }
 
-    function addNewNote() {
+    async function addNewNote() {
         const newNote = {
             text: newNoteText,
             tags: [],
-            id: notes.length + 2
+            id: lastId + 1
         };
-        console.log(newNote)
+        await fetch('http://localhost:5000/notes', {
+            method: 'POST', 
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(newNote)
+        });
+        setLastId(lastId + 1);
         setNotes([...notes, newNote]);
+    }
+
+    async function deleteNote(e) {
+        const newNotes = notes.filter(note => note.id !== Number(e.target.id));
+        await fetchData('http://localhost:5000/notes', 'DELETE', `/${e.target.id}`);
+        setNotes(newNotes);
+        setEditId(-1);
+    }
+
+    function changeEditableNoteText(e) {
+        setEditableNoteText(e.target.value);
+    }
+
+    async function saveNote(id, text) {
+        let newNotes = [...notes];
+        const indexEdit = newNotes.findIndex(note => note.id === id);
+        const editableNote = {
+            text: text,
+            tags: [],
+            id: id
+        };
+        await fetch('http://localhost:5000/notes/' + id, {
+            method: 'PUT', 
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(editableNote)
+        });
+        newNotes.splice(indexEdit, 1, editableNote);
+        setNotes(newNotes);
+    }
+
+    function editNote(e) {
+        if (editId === Number(e.target.id)) {
+            setEditId(-1);
+            saveNote(editId, editableNoteText);
+        } else {
+            if(editId !== -1) {
+                saveNote(editId, editableNoteText);
+            }
+            setEditId(Number(e.target.id));
+            const notEditableNoteText = notes.find(note => note.id === Number(e.target.id)).text;
+            setEditableNoteText(notEditableNoteText);
+        }
     }
 
     return (
@@ -44,10 +103,17 @@ export default function NoteEditorContainer() {
             <CreatingNoteArea
                 tags={tags}
                 addNewNote={addNewNote}
-                changeNoteText={changeNoteText}
+                changeNoteText={changeNewNoteText}
                 noteText={newNoteText}
             />
-            <NotesContainer notes={notes} />
+            <NotesContainer
+                notes={notes}
+                deleteNote={deleteNote}
+                editNote={editNote}
+                editId={editId}
+                onEdit={changeEditableNoteText}
+                editableNoteText={editableNoteText}
+            />
         </div>
     )
 }

@@ -1,17 +1,31 @@
 import React from 'react';
-import NoteEdit from './NoteEdit';
-import NoteDelete from './NoteDelete';
+import Button from '../Button/Button';
+import NoteContent from './NoteContent';
 
 export default function Note(props) {
+
     return (
         <div className="note">
             <div className="note_header">
-                <NoteEdit />
-                <NoteDelete />
+                <Button
+                    id={props.id}
+                    onClick={props.editNote}
+                    className="note_edit"
+                    value={props.edit ? "Save" : "Edit"}
+                />
+                <Button
+                    id={props.id}
+                    onClick={props.deleteNote}
+                    className="note_delete"
+                    value="Delete"
+                />
             </div>
-            <p className="note_text">
-                {props.text}
-            </p>
+            <NoteContent
+                isEdit={props.edit}
+                text={props.text}
+                onEdit={props.onEdit}
+                editableText={props.editableText}
+            />
         </div>
     )
 }
