@@ -4,8 +4,6 @@ import NotesContainer from './notesArea/NotesContainer';
 import './NoteEditorContainer.scss';
 
 export default function NoteEditorContainer() {
-
-
     const [tags, setTags] = useState([]);
     const [notes, setNotes] = useState([]);
     const [newNoteText, setNewNoteText] = useState('');
@@ -25,7 +23,17 @@ export default function NoteEditorContainer() {
         getNotesAndTags();
     }, []);
 
-    const fetchData = async (url, method = 'GET', id = '') => {
+    const fetchData = async (url, method = 'GET', id = '', body) => {
+        if (method == 'PUT' || method == 'POST') {
+            await fetch(url + id, {
+                method: method,
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            return;
+        }
         const response = await fetch(url + id, {
             method: method
         });
@@ -43,13 +51,7 @@ export default function NoteEditorContainer() {
             tags: [],
             id: lastId + 1
         };
-        await fetch('http://localhost:5000/notes', {
-            method: 'POST', 
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(newNote)
-        });
+        await fetchData('http://localhost:5000/notes', 'POST', '', newNote);
         setLastId(lastId + 1);
         setNotes([...notes, newNote]);
     }
@@ -73,13 +75,7 @@ export default function NoteEditorContainer() {
             tags: [],
             id: id
         };
-        await fetch('http://localhost:5000/notes/' + id, {
-            method: 'PUT', 
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(editableNote)
-        });
+        await fetchData('http://localhost:5000/notes/', 'PUT', id, editableNote);
         newNotes.splice(indexEdit, 1, editableNote);
         setNotes(newNotes);
     }
@@ -89,7 +85,7 @@ export default function NoteEditorContainer() {
             setEditId(-1);
             saveNote(editId, editableNoteText);
         } else {
-            if(editId !== -1) {
+            if (editId !== -1) {
                 saveNote(editId, editableNoteText);
             }
             setEditId(Number(e.target.id));
