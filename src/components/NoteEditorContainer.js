@@ -7,12 +7,12 @@ export default function NoteEditorContainer() {
     const [tags, setTags] = useState([]);
     const [notes, setNotes] = useState([]);
     const [newNoteText, setNewNoteText] = useState('');
-    const [lastId, setLastId] = useState(0);
-    const [editId, setEditId] = useState(-1);
+    const [lastId, setLastId] = useState(0); // использую для добавления нового уникального ID заметке
+    const [editId, setEditId] = useState(-1); // чтобы знать какая заметка сейчас редактируется
     const [editableNoteText, setEditableNoteText] = useState('');
 
     useEffect(() => {
-        const getNotesAndTags = async () => {
+        const getNotes = async () => {
             const serverNotes = await fetchData('http://localhost:5000/notes');
             setNotes(serverNotes);
             setTags([]);
@@ -20,7 +20,7 @@ export default function NoteEditorContainer() {
             setLastId(serverNotes[indexOfLanstNote].id);
         }
 
-        getNotesAndTags();
+        getNotes();
     }, []);
 
     const fetchData = async (url, method = 'GET', id = '', body) => {

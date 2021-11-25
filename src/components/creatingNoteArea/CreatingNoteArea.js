@@ -9,19 +9,6 @@ export default class CreatingNoteArea extends React.Component {
         super(props);
     }
 
-    componentDidMount() {
-        console.log('mount')
-    }
-
-    componentDidUpdate() {
-        console.log(this.props)
-
-    }
-
-    // shouldComponentUpdate(nextProps, nextState, nextContext) {
-    //     console.log(nextProps, nextContext);
-    //     return nextProps.noteText[nextProps.noteText.length - 1] !== '#';
-    // }
     render() {
         return (
             <div className="creating_area">
