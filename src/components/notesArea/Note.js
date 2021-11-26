@@ -12,6 +12,7 @@ export default function Note({noteInfo, deleteNote, editInfo}) {
                 editNote={editInfo.editNote}
                 deleteNote={deleteNote}
                 edit={isEdit}
+
             />
             <NoteContent
                 isEdit={isEdit}

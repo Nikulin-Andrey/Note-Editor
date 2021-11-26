@@ -5,6 +5,7 @@ import Button from '../Button/Button';
 
 export default class CreatingNoteArea extends React.Component {
 
+
     render() {
         return (
             <div className="creating_area">
