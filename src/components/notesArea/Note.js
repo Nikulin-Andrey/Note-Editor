@@ -1,23 +1,23 @@
 import React from 'react';
-import Button from '../Button/Button';
 import NoteContent from './NoteContent';
 import NoteHeader from './NoteHeader';
 
-export default function Note(props) {
+export default function Note({noteInfo, deleteNote, editInfo}) {
+    let isEdit = noteInfo.id === editInfo.editId;
 
     return (
         <div className="note">
             <NoteHeader
-                id={props.id}
-                editNote={props.editNote}
-                deleteNote={props.deleteNote}
-                edit={props.edit}
+                id={noteInfo.id}
+                editNote={editInfo.editNote}
+                deleteNote={deleteNote}
+                edit={isEdit}
             />
             <NoteContent
-                isEdit={props.edit}
-                text={props.text}
-                onEdit={props.onEdit}
-                editableText={props.editableText}
+                isEdit={isEdit}
+                text={noteInfo.text}
+                onEdit={editInfo.onEdit}
+                editableText={editInfo.editableNoteText}
             />
         </div>
     )

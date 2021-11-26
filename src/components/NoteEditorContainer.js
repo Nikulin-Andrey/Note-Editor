@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import CreatingNoteArea from './creatingNoteArea/CreatingNoteArea';
 import NotesContainer from './notesArea/NotesContainer';
 import './NoteEditorContainer.scss';
+import withFetch from './HOC/withFetch';
 
-export default function NoteEditorContainer() {
-    const [tags, setTags] = useState([]);
+function NoteEditorContainer({fetchData}) {
     const [notes, setNotes] = useState([]);
     const [newNoteText, setNewNoteText] = useState('');
     const [lastId, setLastId] = useState(0); // использую для добавления нового уникального ID заметке
@@ -15,31 +15,12 @@ export default function NoteEditorContainer() {
         const getNotes = async () => {
             const serverNotes = await fetchData('http://localhost:5000/notes');
             setNotes(serverNotes);
-            setTags([]);
             const indexOfLanstNote = serverNotes.length - 1;
             setLastId(serverNotes[indexOfLanstNote].id);
         }
 
         getNotes();
     }, []);
-
-    const fetchData = async (url, method = 'GET', id = '', body) => {
-        if (method == 'PUT' || method == 'POST') {
-            await fetch(url + id, {
-                method: method,
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(body)
-            });
-            return;
-        }
-        const response = await fetch(url + id, {
-            method: method
-        });
-        const data = await response.json();
-        return data;
-    }
 
     function changeNewNoteText(e) {
         setNewNoteText(e.target.value);
@@ -54,6 +35,7 @@ export default function NoteEditorContainer() {
         await fetchData('http://localhost:5000/notes', 'POST', '', newNote);
         setLastId(lastId + 1);
         setNotes([...notes, newNote]);
+        setNewNoteText('');
     }
 
     async function deleteNote(e) {
@@ -94,10 +76,16 @@ export default function NoteEditorContainer() {
         }
     }
 
+    let editInfo = {
+        onEdit: changeEditableNoteText,
+        editNote: editNote,
+        editId: editId,
+        editableNoteText: editableNoteText
+    }
+
     return (
         <div className="container">
             <CreatingNoteArea
-                tags={tags}
                 addNewNote={addNewNote}
                 changeNoteText={changeNewNoteText}
                 noteText={newNoteText}
@@ -105,11 +93,10 @@ export default function NoteEditorContainer() {
             <NotesContainer
                 notes={notes}
                 deleteNote={deleteNote}
-                editNote={editNote}
-                editId={editId}
-                onEdit={changeEditableNoteText}
-                editableNoteText={editableNoteText}
+                editInfo={editInfo}
             />
         </div>
     )
 }
+
+export default withFetch(NoteEditorContainer);

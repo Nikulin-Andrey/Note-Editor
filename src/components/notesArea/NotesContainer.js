@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './NotesContainer.scss';
 import Note from './Note';
 
-export default function NotesContainer(props) {
-    const notes = props.notes;
-    
+// лучше было создать отдельный компонент, потом так и сделаю, но контекст попробова)
+export const ThemeContext = React.createContext('light');
+
+
+export default function NotesContainer({ notes, deleteNote, editInfo }) {
+    const [theme, setTheme] = useState('light');
+
     return (
-        <div className="notes_container">
-            {notes.map(note =>
-                <Note 
-                    key={note.id}
-                    text={note.text}
-                    deleteNote={props.deleteNote}
-                    id={note.id}
-                    editNote={props.editNote}
-                    edit={note.id === props.editId}
-                    onEdit={props.onEdit}
-                    editableText={props.editableNoteText}
-                />
-            )}
-        </div>
+        <ThemeContext.Provider value={theme}>
+            <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>Change theme</button>
+            <div className="notes_container">
+                {notes.map(note =>
+                    <Note 
+                        key={note.id}
+                        noteInfo={note}
+                        deleteNote={deleteNote}
+                        editInfo={editInfo}
+                    />
+                )}
+            </div>
+        </ThemeContext.Provider>
+
     )
 }
