@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { exampleRequest } from '@/actions'
 import Loader from '@/components/common/Loader/component'
+import Container from './styles'
 
 const ExampleFetcher = () => {
   const dispatch = useDispatch()
@@ -17,12 +18,12 @@ const ExampleFetcher = () => {
   }
 
   return (
-    <div>
+    <Container>
       <h2>I am a fetcher</h2>
       <ul>
         {data.map(post => (<li key={post.id}>{post.title}</li>))}
       </ul>
-    </div>
+    </Container>
   )
 }
 

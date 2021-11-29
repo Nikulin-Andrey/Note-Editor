@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ExampleFetcher from '@/components/blocks/ExampleFetcher'
+import Form from '@/components/blocks/Form'
 import BasicLayout from '@/components/layouts/Basic'
 
 import { Container } from './styles'
@@ -8,8 +9,7 @@ import { Container } from './styles'
 const Landing = () => (
   <BasicLayout>
     <Container>
-      <h1>Landing Page</h1>
-      <ExampleFetcher />
+      <Form />
     </Container>
   </BasicLayout>
 )

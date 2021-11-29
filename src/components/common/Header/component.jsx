@@ -3,7 +3,7 @@ import React from 'react'
 import { Container } from './styles'
 
 const Header = () => (
-  <Container>I am a header</Container>
+  <Container>Note editor</Container>
 )
 
 export default Header

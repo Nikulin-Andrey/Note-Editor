@@ -7,9 +7,13 @@ const config = {
   colors: {
     background: '#ffffff',
     font: '#333333',
-    primary: 'cornflowerblue',
+    primary: '#6495ED',
+    secondary: '#6B9903',
+    tertiary: '#F28F7E',
   },
   fonts: {
+    small: spacing(2),
+    medium: spacing(3),
     big: spacing(4),
   },
   breakpoints: {
