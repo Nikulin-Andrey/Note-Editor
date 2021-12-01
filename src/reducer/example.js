@@ -1,12 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit'
 
-import {
-  addCard,
-  deleteCard,
-  editCard,
-} from '@/actions'
+import { cardsAdd, cardsDelete, cardsEdit, cardsSave, cardsStartEdit } from '@/actions'
+import { addCard, deleteCard } from '@/helpers'
 
 const initialState = {
+  editCardId: null,
   cards: [
     {
       id: 1,
@@ -44,20 +42,28 @@ const initialState = {
 const cardsReducer = createReducer(
   initialState,
   builder => {
-    builder.addCase(addCard, (state, action) => ({
+    builder.addCase(cardsAdd, (state, action) => ({
       ...state,
-      cards: action.payload,
+      cards: addCard(state.cards, action.payload),
     }))
 
-    builder.addCase(deleteCard, (state, action) => ({
+    builder.addCase(cardsDelete, (state, action) => ({
       ...state,
-      cards: action.payload,
+      cards: deleteCard(state.cards, action.payload),
     }))
 
-    builder.addCase(editCard, (state, action) => ({
-      ...state,
-      cards: action.payload,
-    }))
+    builder.addCase(cardsEdit, (state, action) => {
+      const indexOfEdit = state.cards.findIndex(card => state.editCardId === card.id)
+      state.cards.splice(indexOfEdit, 1, { id: state.editCardId, text: action.payload })
+    })
+
+    builder.addCase(cardsStartEdit, (state, action) => {
+      state.editCardId = action.payload
+    })
+
+    builder.addCase(cardsSave, state => {
+      state.editCardId = null
+    })
   },
 )
 
