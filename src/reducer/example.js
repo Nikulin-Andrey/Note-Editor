@@ -1,37 +1,64 @@
 import { createReducer } from '@reduxjs/toolkit'
 
-import { exampleRequest, exampleResponse, exampleResponseFail } from '@/actions'
+import {
+  addCard,
+  deleteCard,
+  editCard,
+} from '@/actions'
 
 const initialState = {
-  isLoading: false,
-  isLoaded: false,
-  data: [],
-  error: null,
+  cards: [
+    {
+      id: 1,
+      text: `Lorem ipsum dolor sit amet consectetur adipisicing
+      elit. Corrupti, nihil. Cupiditate odit asperiores,
+      pariatur mollitia totam voluptate unde illo! Aliquid
+      odio vero amet! Earum magni ipsum amet recusandae.
+      Repudiandae reiciendis cum saepe corporis
+      exercitationem ducimus consectetur laudantium
+      praesentium a dolorem est eligendi, quidem quam`,
+    },
+    {
+      id: 2,
+      text: `Lorem ipsum dolor sit amet consectetur adipisicing
+      elit. Corrupti, nihil. Cupiditate odit asperiores,
+      pariatur mollitia totam voluptate unde illo! Aliquid
+      odio vero amet! Earum magni ipsum amet recusandae.
+      Repudiandae reiciendis cum saepe corporis
+      exercitationem ducimus consectetur laudantium
+      praesentium a dolorem est eligendi, quidem quam`,
+    },
+    {
+      id: 3,
+      text: `Lorem ipsum dolor sit amet consectetur adipisicing
+      elit. Corrupti, nihil. Cupiditate odit asperiores,
+      pariatur mollitia totam voluptate unde illo! Aliquid
+      odio vero amet! Earum magni ipsum amet recusandae.
+      Repudiandae reiciendis cum saepe corporis
+      exercitationem ducimus consectetur laudantium
+      praesentium a dolorem est eligendi, quidem quam`,
+    },
+  ],
 }
 
-const exampleReducer = createReducer(initialState, builder => {
-  builder.addCase(exampleRequest, state => ({
-    ...state,
-    isLoading: true,
-    isLoaded: false,
-    error: null,
-  }))
+const cardsReducer = createReducer(
+  initialState,
+  builder => {
+    builder.addCase(addCard, (state, action) => ({
+      ...state,
+      cards: action.payload,
+    }))
 
-  builder.addCase(exampleResponse, (state, action) => ({
-    ...state,
-    isLoading: false,
-    isLoaded: true,
-    data: action.payload,
-    error: null,
-  }))
+    builder.addCase(deleteCard, (state, action) => ({
+      ...state,
+      cards: action.payload,
+    }))
 
-  builder.addCase(exampleResponseFail, (state, action) => ({
-    ...state,
-    isLoading: false,
-    isLoaded: false,
-    data: [],
-    error: action.payload,
-  }))
-})
+    builder.addCase(editCard, (state, action) => ({
+      ...state,
+      cards: action.payload,
+    }))
+  },
+)
 
-export default exampleReducer
+export default cardsReducer

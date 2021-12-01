@@ -1,3 +1,6 @@
 export const EXAMPLE_REQUEST = '@/EXAMPLE_REQUEST'
 export const EXAMPLE_RESPONSE = '@/EXAMPLE_RESPONSE'
 export const EXAMPLE_RESPONSE_FAIL = '@/EXAMPLE_RESPONSE_FAIL'
+export const ADD_CARD = 'ADD_CARD'
+export const DELETE_CARD = 'DELETE_CARD'
+export const EDIT_CARD = 'EDIT_CARD'

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
-import exampleReducer from './example'
+import cardsReducer from './example'
 
 const reducer = combineReducers({
-  example: exampleReducer,
+  data: cardsReducer,
 })
 
 export default reducer
