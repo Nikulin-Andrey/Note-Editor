@@ -5,4 +5,3 @@ export const addCard = (cards, text) => {
 
 export const deleteCard = (cards, id) =>
   cards.filter(card => card.id !== id)
-
