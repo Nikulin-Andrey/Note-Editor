@@ -5,7 +5,7 @@ import { Container } from './styles'
 import Card from '@/components/common/Card'
 
 const CardsContainer = props => {
-  const { cards } = useSelector(store => store.data)
+  const { cards, editCardId } = useSelector(store => store.data)
 
   return (
     <Container>
@@ -15,6 +15,7 @@ const CardsContainer = props => {
             key={card.id}
             id={card.id}
             text={card.text}
+            editId={editCardId}
           />
         ))
       }
