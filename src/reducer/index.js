@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-import cardsReducer from './example'
+import cardsReducer from './cards'
 
 const reducer = combineReducers({
   data: cardsReducer,

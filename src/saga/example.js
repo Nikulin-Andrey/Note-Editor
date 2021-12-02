@@ -10,14 +10,14 @@ function * watchExample () {
         .then(response => response.json())
     })
 
-    yield put(exampleResponse(data))
+    yield put()
   } catch (error) {
-    yield put(exampleResponseFail(error))
+    yield put()
   }
 }
 
 function * root () {
-  yield takeLatest(EXAMPLE_REQUEST, watchExample)
+  yield 0
 }
 
 export default root

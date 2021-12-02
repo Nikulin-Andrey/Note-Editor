@@ -12,7 +12,7 @@ const Card = ({ text, id, editId }) => {
   const isEdit = editId === id
 
   const deleteCard = () => {
-    dispatch(cardsDelete(Number(currenCard.current.id)))
+    dispatch(cardsDelete(currenCard.current.id))
   }
 
   const setNewText = e => {
@@ -24,11 +24,17 @@ const Card = ({ text, id, editId }) => {
   }
 
   const editCard = () => {
-    dispatch(cardsStartEdit(Number(currenCard.current.id)))
+    dispatch(cardsStartEdit(currenCard.current.id))
   }
 
-  const content = isEdit ? <TextInput text={text} onInput={setNewText}/> : <Content>{text}</Content>
-  const editButton = isEdit ? <Button color="secondary" onClick={saveCard}>Save</Button> : <Button color="secondary" onClick={editCard}>Edit</Button>
+  const content = isEdit ?
+    <TextInput
+      text={text} onInput={setNewText}
+    /> :
+    <Content>{text}</Content>
+  const editButton = isEdit ?
+    <Button color="secondary" onClick={saveCard}>Save</Button> :
+    <Button color="primary" onClick={editCard}>Edit</Button>
 
   return (
     <Container id={id} ref={currenCard}>

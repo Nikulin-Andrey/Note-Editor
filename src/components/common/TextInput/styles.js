@@ -6,5 +6,6 @@ export const Input = styled.textarea`
   background: ${({ theme }) => theme.colors.background};
   font-size: ${({ theme }) => theme.fonts.small}px;
   min-width: 80%;
+  height: 100px;
   border-radius: 4px;
 `

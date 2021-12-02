@@ -1,13 +1,20 @@
-import { createReducer } from '@reduxjs/toolkit'
+import { createReducer, nanoid } from '@reduxjs/toolkit'
 
-import { cardsAdd, cardsDelete, cardsEdit, cardsSave, cardsStartEdit } from '@/actions'
-import { addCard, deleteCard } from '@/helpers'
+import {
+  cardsAdd,
+  cardsDelete,
+  cardsEdit,
+  cardsSave,
+  cardsStartEdit,
+} from '@/actions'
+import { deleteCard } from '@/helpers'
 
 const initialState = {
+  isLight: true,
   editCardId: null,
   cards: [
     {
-      id: 1,
+      id: nanoid(),
       text: `Lorem ipsum dolor sit amet consectetur adipisicing
       elit. Corrupti, nihil. Cupiditate odit asperiores,
       pariatur mollitia totam voluptate unde illo! Aliquid
@@ -17,7 +24,7 @@ const initialState = {
       praesentium a dolorem est eligendi, quidem quam`,
     },
     {
-      id: 2,
+      id: nanoid(),
       text: `Lorem ipsum dolor sit amet consectetur adipisicing
       elit. Corrupti, nihil. Cupiditate odit asperiores,
       pariatur mollitia totam voluptate unde illo! Aliquid
@@ -27,7 +34,7 @@ const initialState = {
       praesentium a dolorem est eligendi, quidem quam`,
     },
     {
-      id: 3,
+      id: nanoid(),
       text: `Lorem ipsum dolor sit amet consectetur adipisicing
       elit. Corrupti, nihil. Cupiditate odit asperiores,
       pariatur mollitia totam voluptate unde illo! Aliquid
@@ -44,7 +51,7 @@ const cardsReducer = createReducer(
   builder => {
     builder.addCase(cardsAdd, (state, action) => ({
       ...state,
-      cards: addCard(state.cards, action.payload),
+      cards: [...state.cards, action.payload],
     }))
 
     builder.addCase(cardsDelete, (state, action) => ({
@@ -53,8 +60,13 @@ const cardsReducer = createReducer(
     }))
 
     builder.addCase(cardsEdit, (state, action) => {
-      const indexOfEdit = state.cards.findIndex(card => state.editCardId === card.id)
-      state.cards.splice(indexOfEdit, 1, { id: state.editCardId, text: action.payload })
+      const indexOfEdit = state.cards.findIndex(
+        card => state.editCardId === card.id,
+      )
+      state.cards.splice(indexOfEdit, 1, {
+        id: state.editCardId,
+        text: action.payload,
+      })
     })
 
     builder.addCase(cardsStartEdit, (state, action) => {
